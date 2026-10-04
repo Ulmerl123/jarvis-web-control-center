@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Global Styles for JARVIS Web Interface
+ *
+ * This file sets up the foundational look and feel for the entire application,
+ * integrating Tailwind CSS with custom futuristic, dark, and glassmorphic
+ * design elements.
+ */
+
+/*
+ * Custom CSS Variables for Design Tokens
+ * These variables ensure consistent theming across the application.
+ */
+:root {
+  /* Colors */
+  --color-primary-bg: #0A0A1F; /* Very dark blue-black */
+  --color-secondary-bg: #11112C; /* Slightly lighter dark blue */
+  --color-text-light: #E0E7FF; /* Light grey-blue for main text */
+  --color-text-muted: #9BA4B5; /* Muted grey for secondary text */
+  --color-accent-blue: #00BFFF; /* Deep Sky Blue - primary accent */
+  --color-accent-green: #39FF14; /* Neon Green - secondary accent */
+  --color-accent-purple: #8A2BE2; /* Blue Violet - tertiary accent */
+
+  /* Gradients */
+  --gradient-bg-main: linear-gradient(135deg, #0A0A1F 0%, #17173D 100%);
+  --gradient-glass-border: linear-gradient(90deg, rgba(0, 191, 255, 0.3) 0%, rgba(138, 43, 226, 0.3) 100%);
+  --gradient-glass-bg: rgba(255, 255, 255, 0.05); /* Very subtle white transparency */
+
+  /* Glassmorphism properties */
+  --glass-blur: 15px;
+  --glass-border-width: 1px;
+  --glass-border-color: rgba(255, 255, 255, 0.1); /* Subtle white border */
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+  /* Fonts */
+  --font-primary: 'Inter', sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+}
+
+/* Base HTML & Body Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--gradient-bg-main);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--color-text-light);
+  margin-bottom: 0.5em;
+}
+
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.8rem; }
+h4 { font-size: 1.5rem; }
+
+/* Text Selection */
+::selection {
+  background-color: var(--color-accent-blue);
+  color: var(--color-primary-bg);
+}
+
+/* Custom Scrollbar Styling (for WebKit browsers) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-secondary-bg);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-blue);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-green);
+}
+
+/*
+ * Glassmorphism Base Class
+ * Apply this class to elements that should have a glassmorphic effect.
+ */
+.glass-effect {
+  background-color: var(--gradient-glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur)); /* For Safari */
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  box-shadow: var(--glass-shadow);
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.glass-effect:hover {
+  box-shadow: 0 16px 64px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/*
+ * Animations
+ * Reusable keyframe animations for micro-interactions and visual flair.
+ */
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0px var(--color-accent-blue);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--color-accent-blue), 0 0 30px rgba(0, 191, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0px var(--color-accent-blue);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes holographic-border {
+  0% {
+    border-image-source: linear-gradient(0deg, var(--color-accent-blue), var(--color-accent-purple));
+  }
+  25% {
+    border-image-source: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-purple));
+  }
+  50% {
+    border-image-source: linear-gradient(180deg, var(--color-accent-blue), var(--color-accent-purple));
+  }
+  75% {
+    border-image-source: linear-gradient(270deg, var(--color-accent-blue), var(--color-accent-purple));
+  }
+  100% {
+    border-image-source: linear-gradient(360deg, var(--color-accent-blue), var(--color-accent-purple));
+  }
+}
+
+/*
+ * AOS (Animate On Scroll) Integration
+ * Basic styles for elements before they are animated by AOS.
+ */
+[data-aos] {
+  opacity: 0;
+  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+  transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+}
+
+/*
+ * Utility Classes (beyond standard Tailwind, for specific JARVIS look)
+ */
+
+.text-gradient-blue-purple {
+  background: linear-gradient(45deg, var(--color-accent-blue), var(--color-accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent; /* Fallback for browsers that don't support text-fill-color */
+}
+
+.border-gradient-blue-purple {
+  border: var(--glass-border-width) solid transparent;
+  border-image: linear-gradient(45deg, var(--color-accent-blue), var(--color-accent-purple)) 1;
+  /* Use a proper border image or overlay for more complex gradients */
+}
+
+.pulse-animation {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+.holographic-border-animation {
+  border-image-slice: 1;
+  animation: holographic-border 4s linear infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.5rem; }
+  body { font-size: 0.95rem; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.3rem; }
+  body { font-size: 0.9rem; }
+}
